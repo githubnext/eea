@@ -107,7 +107,12 @@ If the spec-first approach supports iterating on the specification and code, we 
 - `ApplyPartialSpecChange`: (Code, Spec, Spec') ⟿ Code'
 - `EndState`: (Spec', Code')
 
-In the above the symbol ⟿ represents an unstable generation of words or code either by a human or using one or more LLM invocations, where the instability can arise from any of the reasons well-associated with LLM probabilistic generation: the inherent ambiguity of words, the many possible ways to code a solution, the "filling in of reasonable defaults" that happens when LLMs elaborate specifications, or the process of hallucination over ambiguous problems spaces. These functions can be autonomous agentic processes that have any internal iteration or processing logic.
+These functions can be autonomous agentic processes that have any internal iteration or processing logic. In the above the symbol ⟿ represents an unstable generation of words or code either by a human or using one or more LLM invocations, where the instability can arise from any of the reasons well-known with LLM probabilistic generation:
+
+- the inherent ambiguity of words
+- the many possible ways to code a solution
+- the "filling in of reasonable defaults" that happens when LLMs elaborate specifications, or 
+- the process of hallucination over ambiguous problems spaces.
 
 In contrast, a code-first approach with EEA has the following components:
 
