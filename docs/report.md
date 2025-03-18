@@ -130,7 +130,7 @@ The inputs to the `ApplyPartialSpecChange` function include both the original an
 
 Note that in the purist, dogmatic form of EEA, no code editing by the human is needed at all - in theory all coding can proceed via repeated specification extraction, editing and application. However, in practice, the human will often need to edit the code directly, and this is compatible with EEA.
 
-## Many Pivots, Many Specifications
+## Many Pivots, Many Partial Specifications
 
 EEA embraces the idea that there is not one "primary" specification, but rather many possible "partial" specifications that can be used to give valid "views" of code. This is a key difference to most spec-first programming, which inevitably must embrace a more-or-less unitary notion of specification. Instead, the EEA approach conceptualizes software as multi-dimensional, multi-faceted, pivotable: more like a data cube than a hierarchically organized concept tree.
 
