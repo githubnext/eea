@@ -2,7 +2,7 @@
 documentclass: report
 fontsize: 10pt
 title-meta: "Extract, Edit, Apply"
-author-meta: "Don Syme, Edward Aftandilian, Jonathan Carter, ..."
+author-meta: "Don Syme, Edward Aftandilian, Jonathan Carter, Anthony van der Hoorn, ..."
 date-meta: "18 March 2025"
 ---
 
@@ -21,7 +21,7 @@ Bibtex:
 ```bib
 @techreport{syme2024eea,
      title = {{Extract, Edit, Apply}},
-     author = {Don Syme and Edward Aftandilian and Jonathan Carter and ...},
+     author = {Don Syme and Edward Aftandilian and Jonathan Carter and Anthony van der Hoorn and ...},
      group = {GitHub Next},
      number = {GHN-TR-1002},
      year = {2025},
@@ -324,17 +324,18 @@ screenshots TBD
 
 We observed the following advantages in our initial user testing:
 
-- Comprehension: EEA naturally helps users understand and maintain, while also being machine-readable.
-- Solving the Vocabulary Problem: EEA gives users the vocabulary they need to shape and describe their intent. As a result the actual change to a specification can often be very small.
-- Incremental Adoption: EEA can be gradually adopted on existing repositories, allowing users to start using it without having to rewrite their entire codebase.
-- Accuracy: Extract-Edit can produce accurate and precise specifications, which, when used as inputs to the Apply step, generate code changes that are accurate and precise.
-- Succinctness: EEA means code changes are specified extremely succinctly, in the sense that the number of overall changed words needed to express a change is small.
+- **Comprehension**: EEA naturally helps users understand and maintain, while also being machine-readable.
+- **Solving the Vocabulary Problem**: EEA gives users the vocabulary they need to shape and describe their intent. As a result the actual change to a specification can often be very small.
+- **Incremental Adoption**: EEA can be gradually adopted on existing repositories, allowing users to start using it without having to rewrite their entire codebase.
+- **Accuracy**: Extract-Edit can produce accurate and precise specifications, which, when used as inputs to the Apply step, generate code changes that are accurate and precise.
+- **Succinctness of Change**: EEA means code changes are specified extremely succinctly, in the sense that the number of overall changed words needed to express a change is small.
 
 We observed the following drawbacks:
 
-- Requires a pivot: EEA requires users to provide a pivot, which can be difficult conceptually for some users, and difficult to find in practice.
-- Requires comprehension skills: EEA requires users to read and edit the extracted specification, which can be difficult for some users. Some users literally do not enjoy words, and prefer to work with code.
-- Targeted: EEA admits only one mode of use. Chat, on the other hand, is much more flexible. This is both a drawback and, in some ways, an advantage. EEA is a more structured approach to software tooling, which can be beneficial for some users.
+- **Requires a pivot**: EEA requires users to provide a pivot, which can be difficult conceptually for some users, and difficult to find in practice.
+- **Requires comprehension skills**: EEA requires users to read and edit the extracted specification, which can be difficult for some users. Some users literally do not enjoy words, and prefer to work with code.
+- **Wall of text**: When badly directed, EEA can produce a lot of text, which can be overwhelming for some users. This is particularly true if the user is averse to reading text, or if the extracted specification is very long.
+- **Limited workflow**: EEA admits only one mode of use. Chat, on the other hand, is much more flexible. This is both a drawback and, in some ways, an advantage. EEA is a more structured approach to software tooling, which can be beneficial for some users.
 
 ### Existing Approaches to Expressing Change Intent
 
