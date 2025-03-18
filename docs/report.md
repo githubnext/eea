@@ -156,7 +156,7 @@ The following are examples of pivots we have explored in our prototypes:
 
   - Example pivot: "The data layer"
   - Example output: "The data layer is implemented using a storage file customers.txt"
-  - Example change: "The data layer is implemented using a SQL database hosted on AWS with table 'customers'"
+  - Example change: "The data layer is implemented using a SQL database hosted on AWS"
   - Result: Code changes are generated to change the data layer from a file-based implementation to a SQL database hosted on AWS.
 
 - **Topical Summary**: A summary of the code with a specific topical focus such as "security" or "performance"
