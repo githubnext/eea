@@ -50,7 +50,6 @@ Other examples of specification-first programming include:
 - The coding systems developed by [tessl.ai](https://tessl.ai/).
 - The requirements-to-app toolchain of [cogna.co](https://cogna.co/).
 - The app-description-to-code toolchain of [Lovable](https://www.lovable.dev/).
-- The task-to-code-change SWE-agents such as [Claude Code](https://docs.anthropic.com/en/docs/agents-and-tools/.claude-code/overview) and [Cursor Composer](https://docs.cursor.com/chat/overview).
 - The many recent examples of ["Vibe" programming](https://en.wikipedia.org/wiki/Vibe_coding).
 
 There are, however, multiple problems with natural language "programming" where words, specifications or documentation are primary. These include:
@@ -61,9 +60,9 @@ There are, however, multiple problems with natural language "programming" where 
 - The non-deterministic nature of LLMs including code generation, even when intent is unambiguous.
 - The instability of AI code-generation under otherwise small or unimportant changes to inputs.
 
-Together these mean that Generative AI tends to be used in the "initial generation" or "initial change" mode, where the user asks for code or code change, and the AI generates a new function, module, feature change or entire codebase. While this is immensely powerful, it begs the question "what next", and doesn't give a stable iterative workflow for assisted software development.
+Together these mean that Generative AI tends to be used in the "initial generation" mode, where the user asks for code, and the AI generates a new function, module, feature change or entire codebase. While this is immensely powerful, it begs the question "what next", and doesn't give a stable iterative workflow for assisted software development. Most notably, repeated applications of this methodology with slightly changed specifications can lead to wildly different outputs.
 
-In practice, numerous techniques are utilized to "stabilize" the AI code generation process. These include:
+In practice, numerous techniques are utilized to "stabilize" the AI code generation process from an initial specification. These include:
 
 - Using training and prompting techniques to reduce the valid space of generation, e.g. to constrain generation to a specific programming language, with specific conventions.
 - Using retrieval techniques to constrain the kinds of code that can be generated, e.g. by using a large codebase as a "context" for the generation, or by having retrieval operate over the documentation for preferred libraries, design systems or functions.
