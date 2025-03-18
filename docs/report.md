@@ -252,7 +252,8 @@ In June 2023, GitHub Next developed a web-based demonstrator of EEA and made it 
 
 Below we include a video of a very early use of the demonstrator, which was built using React and TypeScript.
 
-![EEA Demonstrator](../images/video-message-language-change.mp4)
+https://github.com/user-attachments/assets/911248d0-10f0-4d39-826d-fd860f244899
+
 
 In the video:
 
