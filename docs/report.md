@@ -48,7 +48,7 @@ Other examples of specification-first programming include:
 
 - Adhoc use of code comments to prompt completion systems such as GitHub Copilot Completions.
 - Adhoc use of Chat-GPT to generate code under human direction.
-- The prototypes of developed by [tessl.ai](https://tessl.ai/).
+- The coding systems developed by [tessl.ai](https://tessl.ai/).
 - The requirements-to-app toolchain of [cogna.co](https://cogna.co/).
 - The task-to-code-change SWE-agents such as [Claude Code](https://docs.anthropic.com/en/docs/agents-and-tools/.claude-code/overview) and [Cursor Composer](https://docs.cursor.com/chat/overview).
 - The many recent examples of ["Vibe" programming](https://en.wikipedia.org/wiki/Vibe_coding).
