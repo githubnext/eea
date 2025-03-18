@@ -306,6 +306,8 @@ We observed the following drawbacks:
 - Requires comprehension skills: EEA requires users to read and edit the extracted specification, which can be difficult for some users. Some users literally do not enjoy words, and prefer to work with code.
 - Targeted: EEA admits only one mode of use. Chat, on the other hand, is much more flexible. This is both a drawback and, in some ways, an advantage. EEA is a more structured approach to software tooling, which can be beneficial for some users.
 
+### Existing Approaches to Expressing Change Intent
+
 The ultimate test of EEA is whether people actually use it. This remains an open question. The reality is that in current AI coding systems there are competing ways to express change intent, including:
 
 - Self-prompting: Prompting AI completion agents, e.g. by writing a comment in the code.
