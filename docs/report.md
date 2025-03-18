@@ -72,7 +72,7 @@ These techniques are all useful, but the problems of instability and ambiguity a
 
 One approach to this is to switch to a "task-oriented" mode of describing changes to software, and this approach is now becoming normal, for example:
 
-- Copilot Workspace, which allows users to describe tasks in natural language and then generates code to implement those tasks.
+- Copilot Workspace, which allows users to describe tasks in natural language and then generates code to implement those tasks, and then allows further iterative changes to the code by imperative commands.
 - Cursor Compose, which operates similarly in an IDE context.
 - VSCode Edits, which is again similar and IDE-based.
 - GitHub Spark, which accepts iterative updates to change a generated app.
