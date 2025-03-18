@@ -61,7 +61,7 @@ There are, however, multiple problems with natural language "programming" where 
 - The non-deterministic nature of LLMs including code generation, even when intent is unambiguous.
 - The instability of AI code-generation under otherwise small or unimportant changes to inputs.
 
-Together these mean that Generative AI tends to be used in its "generative" mode, where the user asks for a code change and the AI generates a new function, module, feature change or codebase. While this is immensely powerful it doesn't give a stable iterative workflow for assisted software development.
+Together these mean that Generative AI tends to be used in the "initial generation" or "initial change" mode, where the user asks for code or code change, and the AI generates a new function, module, feature change or entire codebase. While this is immensely powerful, it begs the question "what next", and doesn't give a stable iterative workflow for assisted software development.
 
 In practice, numerous techniques are utilized to "stabilize" the AI code generation process. These include:
 
