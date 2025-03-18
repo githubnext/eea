@@ -141,92 +141,107 @@ The following are examples of pivots we have explored in our prototypes:
 - **General Summary**: A general summary of the behavior of the code
 
   - Example pivot: "A summary of the behavior of the code"
-  - Example output: "This is a React app that uses TypeScript and Redux"
-  - Example change: "This is a React app that uses TypeScript, Redux and Tailwind CSS"
+  - Example output: "This is a React app implementing a simple note-taking app"
+  - Example change: "This is a React app implementing a simple note-taking app with light/dark mode"
+  - Result: Code changes are generated to add the light/dark mode feature to the app.
 
 - **Subset Summary**: A summary of a subset of files or components in the code
 
   - Example pivot: "Summarize the buttons in src/components"
   - Example output: "IncrementButton.tsx - triggers state increment, ..."
   - Example change: "IncrementButton.tsx - triggers state increment + a user toast notification"
+  - Result: Code changes are generated to add a user toast notification to the IncrementButton component.
 
 - **Layer Summary**: A summary of a layer of the code, such as "UI", "Server API" or "Data Layer"
 
   - Example pivot: "The data layer"
   - Example output: "The data layer is implemented using a storage file customers.txt"
   - Example change: "The data layer is implemented using a SQL database hosted on AWS with table 'customers'"
+  - Result: Code changes are generated to change the data layer from a file-based implementation to a SQL database hosted on AWS.
 
 - **Topical Summary**: A summary of the code with a specific topical focus such as "security" or "performance"
 
   - Example pivot: "The security in the app"
   - Example output: "Uses bcrypt for password hashing"
   - Example change: "Uses bcrypt for password hashing, plus a rate-limiting middleware to the API"
+  - Result: Code changes are generated to add a rate-limiting middleware to the API.
 
 - **Aspect Summary**: A summary of a distinct, separable technical aspect of the code, such as internationalization or accessibility
 
   - Example pivot: "The internationalization used in the app"
   - Example output: "Uses react-intl, locales 'en' and 'es'"
   - Example change: "Uses react-intl, locales 'en', 'es', 'fr', 'de' and five popular Asian languages"
+  - Result: Code changes are generated to add support for French, German and five popular Asian languages to the app.
 
 - **Property Extraction**: A categorized listing of properties of the code, such as colors, fonts, or other design properties.
 
   - Example pivot: "The colors used in the app"
   - Example output: "Primary color: #FF0000, Secondary color: #00FF00"
   - Example change: "Primary color: #7FFF7F, Secondary color: #00A0D0"
+  - Result: Code changes are generated to change the primary and secondary colors of the app.
 
 - **Technology Listing**: A summary of the technology stack and other dependencies used, with a view to porting the code to a new stack.
 
   - Example pivot: "Technology stack"
   - Example output: "React 18, TypeScript 4.5, Redux 4.1, Tailwind CSS 2.0"
   - Example change: "React 18, TypeScript 5.0, Redux 4.1, Tailwind CSS 3.0"
+  - Result: Code changes are generated to upgrade the technology stack
 
 - **Feature Specification**: A summary of the features or functionality of the code.
 
   - Example pivot: "Summarize the features of the app"
   - Example output: "User can create an account, add notes, view notes, delete notes"
-  - Example change: "User can create an account, add notes, view notes, delete notes, share notes with other users"
+  - Example change: "User can create an account, add notes, view notes, share notes with other users"
+  - Result: Code changes are generated to add a sharing feature to the app and remove the delete feature.
 
 - **Rule Specification**: A summary of the game or business rules of the code.
 
   - Example pivot: "Game rules"
   - Example output: "Player can move left, right, up, down"
   - Example change: "Player can move left, right, up, down, and jump"
+  - Result: Code changes are generated to add a jump feature to the game.
 
 - **Test Listing**: A summary of the tests present in the code, with a view to improving them.
 
   - Example pivot: "Tests"
   - Example output: "Unit tests for IncrementButton, Integration tests for API"
   - Example change: "Unit tests for IncrementButton, Integration tests for API, End-to-end playwright tests for user flow"
+  - Result: Code changes are generated to add end-to-end tests for the user flow.
 
 - **Bug Listing**: An analysis of the bugs present in the code, with a view to fixing them.
 
   - Example pivot: "Bugs"
   - Example output: "Bug #1234: IncrementButton does not increment state, Bug #5678: API returns 500 error"
   - Example change: "All bugs fixed"
+  - Result: Code changes are generated that attempt to fix all bugs in the code.
 
 - **Requirements**: A description of the requirements of the code, with a view to adding to them or changing them.
 
   - Example pivot: "Current requirements for authentication, inferred from code and docs"
   - Example output: "User must be able to create an account"
   - Example output: "User must be able to create an account, reset password, and log in with Google"
+  - Result: Code changes are generated to add a Google login feature to the app.
 
 - **Organizational Summary**: A summary of the files and components present in the code, with a view to refactoring them.
 
   - Example pivot: "Files and components"
   - Example output: "src/components/IncrementButton.tsx, src/components/DecrementButton.tsx, src/utils/helpers.ts"
   - Example change: "src/components/Buttons.tsx, src/utils/helpers.ts"
+  - Result: Code changes are generated to refactor the IncrementButton and DecrementButton components into a single Buttons file.
 
 - **Input examples**: A listing of example invocations of, say, a command-line tool, with a view to specifying a modification by simply adding or modifying these examples
 
   - Example pivot: "Examples of command line invocations"
   - Example output: "notes add --title 'My note' --body 'This is my note'
   - Example change: "notes add --title 'My note' --body 'This is my note', notes delete --id 1234"
+  - Result: Code changes are generated to add a delete command to the command line tool.
 
 - **Formal**: A formal specification of one or more aspects of the code (e.g. its complexity), with a view to improving these
 
   - Example pivot: "Computational complexity of list processing functions in src/lib/list.ts"
   - Example output: "filter is O(n), map is O(n), distinct is O(n^2)"
   - Example change: "filter is O(n), map is O(n), distinct is O(n log n)"
+  - Result: Code changes are generated to improve the complexity of the distinct function from O(n^2) to O(n log n), e.g. by using a hash set.
 
 Together these mean EEA gives a portal to multiple different approaches to software development, including:
 
