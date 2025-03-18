@@ -122,6 +122,8 @@ In contrast, a code-first approach with EEA has the following components:
 - `ApplyPartialSpecChange`: (Code, Pivot, PartialSpec, PartialSpec') ⟿ Code'
 - `EndState`: Code'
 
+Note that the start and end states are just code. Code is King.
+
 Note also that the `ExtractPartialSpec` function is not a simple "summarization" function. It is a complex function that can involve multiple steps, including retrieval of relevant code, summarization, and generation of a specification. Further the output need not be plain text or markdown: it can int theory be a diagram generator, or property extractor, or entity extractor, or a myriad of other analysis operations over code.
 
 The inputs to the `ApplyPartialSpecChange` function include both the original and modified partial specifications. This function will typically be implemented by an LLM, and in its prompt-preparation the change being requested can be assessed and emphasized ("the developer has added a new requirement" or "the developer has adjusted X to Y" etc.). Further, the entire context of the original analysis is known to the function, and so the LLM processing can be designed to apply the change in a way that is consistent with the original analysis.
