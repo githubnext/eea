@@ -31,6 +31,10 @@ Bibtex:
 }
 ```
 
+Image:
+
+![image](../images/concept3.png)
+
 ## Background
 
 One of the core problems in software development is modifying existing codebases, particularly when working with large, complex systems where understanding the code and its specifications can be challenging.
@@ -79,6 +83,12 @@ EEA revolves around the notion of _ephemeral_, _editable_, _partial_ specificati
 
 When extracting the specification, the extraction is done with respect to a "pivot" - a phrase, words or text that is used as a reference for the extraction. This pivot can be anything, but in practice we have explored many kinds of pivots, some of which we will catalogue in the subsequent sections.
 
+![image](../images/concept.png)
+
+![image](../images/concept2.png)
+
+## Formulation as Functions
+
 Let's contrast the essential components of spec-first and code-first natural language programming. For a spec-first approach, we have:
 
 - `State`: Spec
@@ -105,16 +115,6 @@ Note also that the `ExtractPartialSpec` function is not a simple "summarization"
 
 The inputs to the `ApplyPartialSpecChange` function include both the original and modified partial specifications. This function will typically be implemented by an LLM, and in its prompt-preparation the change being requested can be assessed and emphasized ("the developer has added a new requirement" or "the developer has adjusted X to Y" etc.). Further, the entire context of the original analysis is known to the function, and so the LLM processing can be designed to apply the change in a way that is consistent with the original analysis.
 
-Here is an example workflow of EEA:
-
-1. The user requests a summary of the rules implemented in a game, based on current code and documentation.
-2. The user views the summary.
-3. The user edits the spec to change the rules of the game and applies these edits.
-4. The toolchain offers a code change corresponding to the spec change.
-5. The user accepts the code change.
-6. The appropriate code change is applied to all relevant code.
-7. The extracted spec is discarded.
-
 Note that in the purist, dogmatic form of EEA, no code editing by the human is needed at all - in theory all coding can proceed via repeated specification extraction, editing and application. However, in practice, the human will often need to edit the code directly, and this is compatible with EEA.
 
 ## Many Pivots, Many Specifications
@@ -125,91 +125,91 @@ In our version of EEA, we have simply allowed pivots to be arbitrary natural lan
 
 The following are examples of pivots we have explored in our prototypes:
 
-- General Summary: A general summary of the behavior of the code
+- **General Summary**: A general summary of the behavior of the code
 
   - Example pivot: "A summary of the behavior of the code"
   - Example output: "This is a React app that uses TypeScript and Redux"
   - Example change: "This is a React app that uses TypeScript, Redux and Tailwind CSS"
 
-- Subset Summary: A summary of a subset of files or components in the code
+- **Subset Summary**: A summary of a subset of files or components in the code
 
   - Example pivot: "Summarize the buttons in src/components"
   - Example output: "IncrementButton.tsx - triggers state increment, ..."
   - Example change: "IncrementButton.tsx - triggers state increment + a user toast notification"
 
-- Layer Summary: A summary of a layer of the code, such as "UI", "Server API" or "Data Layer"
+- **Layer Summary**: A summary of a layer of the code, such as "UI", "Server API" or "Data Layer"
 
   - Example pivot: "The data layer"
   - Example output: "The data layer is implemented using a storage file customers.txt"
   - Example change: "The data layer is implemented using a SQL database hosted on AWS with table 'customers'"
 
-- Topical Summary: A summary of the code with a specific topical focus such as "security" or "performance"
+- **Topical Summary**: A summary of the code with a specific topical focus such as "security" or "performance"
 
   - Example pivot: "The security in the app"
   - Example output: "Uses bcrypt for password hashing"
   - Example change: "Uses bcrypt for password hashing, plus a rate-limiting middleware to the API"
 
-- Aspect Summary: A summary of a distinct, separable technical aspect of the code, such as internationalization or accessibility
+- **Aspect Summary**: A summary of a distinct, separable technical aspect of the code, such as internationalization or accessibility
 
   - Example pivot: "The internationalization used in the app"
   - Example output: "Uses react-intl, locales 'en' and 'es'"
   - Example change: "Uses react-intl, locales 'en', 'es', 'fr', 'de' and five popular Asian languages"
 
-- Property Extraction: A categorized listing of properties of the code, such as colors, fonts, or other design properties.
+- **Property Extraction**: A categorized listing of properties of the code, such as colors, fonts, or other design properties.
 
   - Example pivot: "The colors used in the app"
   - Example output: "Primary color: #FF0000, Secondary color: #00FF00"
   - Example change: "Primary color: #7FFF7F, Secondary color: #00A0D0"
 
-- Technology Listing: A summary of the technology stack and other dependencies used, with a view to porting the code to a new stack.
+- **Technology Listing**: A summary of the technology stack and other dependencies used, with a view to porting the code to a new stack.
 
   - Example pivot: "Technology stack"
   - Example output: "React 18, TypeScript 4.5, Redux 4.1, Tailwind CSS 2.0"
   - Example change: "React 18, TypeScript 5.0, Redux 4.1, Tailwind CSS 3.0"
 
-- Feature Specification: A summary of the features or functionality of the code.
+- **Feature Specification**: A summary of the features or functionality of the code.
 
   - Example pivot: "Summarize the features of the app"
   - Example output: "User can create an account, add notes, view notes, delete notes"
   - Example change: "User can create an account, add notes, view notes, delete notes, share notes with other users"
 
-- Rule Specification: A summary of the game or business rules of the code.
+- **Rule Specification**: A summary of the game or business rules of the code.
 
   - Example pivot: "Game rules"
   - Example output: "Player can move left, right, up, down"
   - Example change: "Player can move left, right, up, down, and jump"
 
-- Test Listing: A summary of the tests present in the code, with a view to improving them.
+- **Test Listing**: A summary of the tests present in the code, with a view to improving them.
 
   - Example pivot: "Tests"
   - Example output: "Unit tests for IncrementButton, Integration tests for API"
   - Example change: "Unit tests for IncrementButton, Integration tests for API, End-to-end playwright tests for user flow"
 
-- Bug Listing: An analysis of the bugs present in the code, with a view to fixing them.
+- **Bug Listing**: An analysis of the bugs present in the code, with a view to fixing them.
 
   - Example pivot: "Bugs"
   - Example output: "Bug #1234: IncrementButton does not increment state, Bug #5678: API returns 500 error"
   - Example change: "All bugs fixed"
 
-- Requirements: A description of the requirements of the code, with a view to adding to them or changing them.
+- **Requirements**: A description of the requirements of the code, with a view to adding to them or changing them.
 
   - Example pivot: "Current requirements for authentication, inferred from code and docs"
   - Example output: "User must be able to create an account"
   - Example output: "User must be able to create an account, reset password, and log in with Google"
 
-- Organizational Summary: A summary of the files and components present in the code, with a view to refactoring them.
+- **Organizational Summary**: A summary of the files and components present in the code, with a view to refactoring them.
 
   - Example pivot: "Files and components"
   - Example output: "src/components/IncrementButton.tsx, src/components/DecrementButton.tsx, src/utils/helpers.ts"
   - Example change: "src/components/Buttons.tsx, src/utils/helpers.ts"
 
-- Examples: A listing of example invocations of, say, a command-line tool, with a view to specifying a modification by simply adding or modifying these examples
+- **Input examples**: A listing of example invocations of, say, a command-line tool, with a view to specifying a modification by simply adding or modifying these examples
 
   - Example pivot: "Examples of command line invocations"
   - Example output: "notes add --title 'My note' --body 'This is my note'
   - Example change: "notes add --title 'My note' --body 'This is my note', notes delete --id 1234"
 
-- Formal: A formal specification of one or more aspects of the code (e.g. its complexity), with a view to improving these
+- **Formal**: A formal specification of one or more aspects of the code (e.g. its complexity), with a view to improving these
 
   - Example pivot: "Computational complexity of list processing functions in src/lib/list.ts"
   - Example output: "filter is O(n), map is O(n), distinct is O(n^2)"
@@ -231,7 +231,7 @@ EEA is thus in essence neutral to the specification approach embodied by the ext
 
 In our experience, EEA is best implemented as an addition to existing code-oriented software-development toolchains. This is done by adding a simple feature that allows users to extract ephemeral specifications, edit them and apply changes to existing code. Any implementation will include the following features:
 
-- Pivot entry: Users enter a pivot, which can be a phrase, words, or text that serves as a reference for the extraction process. Alternatively, the list of pivots can be pre-defined and the user can select one from a list.
+- Pivot: Users enter a pivot, which can be a phrase, words, or text that serves as a reference for the extraction process. Alternatively, the list of pivots can be pre-defined and the user can select one from a list.
 - Spec Extraction: Automatically generates specifications from code at various granularities (function, class, file, directory, repo).
 - Spec Editing: Allows users to modify extracted specs and view corresponding code changes.
 - Spec Application: Applies changes to the codebase based on the edited specs.
