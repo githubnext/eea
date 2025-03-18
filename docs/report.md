@@ -33,7 +33,7 @@ Bibtex:
 
 Image:
 
-![image](../images/concept3.png)
+![image](../images/concept.png)
 
 ## Background
 
@@ -82,11 +82,9 @@ The above discussion assumes words are primary. However what if we start from th
 
 EEA revolves around the notion of _ephemeral_, _editable_, _partial_ specifications. The paradigm is to make code permanent and specifications ephemeral: users can edit either the code or ephemeral specs, which are essentially code summaries that can be generated, modified, and discarded as needed. If the user edits an ephemeral specification, the toolchain will offer a code change corresponding to the spec change. The user can then accept or reject the code change, and the toolchain will apply the change to the codebase.
 
-When extracting the specification, the extraction is done with respect to a "pivot" - a phrase, words or text that is used as a reference for the extraction. This pivot can be anything, but in practice we have explored many kinds of pivots, some of which we will catalogue in the subsequent sections.
+When extracting the specification, the extraction is done with respect to a "pivot" or "topic" - a phrase, words or text that is used as a reference for the extraction. This pivot can be anything, but in practice we have explored many kinds of pivots, some of which we will catalogue in the subsequent sections.
 
-![image](../images/concept.png)
-
-![image](../images/concept2.png)
+![image](../images/concept3.png)
 
 ## Formulation as Functions
 
