@@ -296,14 +296,15 @@ screenshots TBD
 We observed the following advantages in our initial user testing:
 
 - Comprehension: EEA naturally helps users understand and maintain, while also being machine-readable.
-- Natural Language: EEA allows users to express their intent in natural language, which is more intuitive and easier to understand than traditional code-based approaches.
+- Solving the Vocabulary Problem: EEA gives users the vocabulary they need to shape and describe their intent. As a result the actual change to a specification can often be very small.
 - Incremental Adoption: EEA can be gradually adopted on existing repositories, allowing users to start using it without having to rewrite their entire codebase.
-- Adaptability: The definition of SpecLang can evolve over time, allowing for continuous improvement and adaptation to changing requirements.
+- Accuracy: Extract-Edit can produce accurate and precise specifications, which, when used as inputs to the Apply step,  generate code changes that are accurate and precise.
 
 We observed the following drawbacks:
 
 - Requires a pivot: EEA requires users to provide a pivot, which can be difficult conceptually for some users, and difficult to find in practice.
 - Requires comprehension skills: EEA requires users to read and edit the extracted specification, which can be difficult for some users. Some users literally do not enjoy words, and prefer to work with code.
+- Targeted: EEA admits only one mode of use. Chat, on the other hand, is much more flexible. This is both a drawback and, in some ways, an advantage. EEA is a more structured approach to software tooling, which can be beneficial for some users.
 
 The ultimate test of EEA is whether people actually use it. This remains an open question. The reality is that in current AI coding systems there are competing ways to express change intent, including:
 
