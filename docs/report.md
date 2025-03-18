@@ -243,6 +243,8 @@ The following are examples of pivots we have explored in our prototypes:
   - Example change: "filter is O(n), map is O(n), distinct is O(n log n)"
   - Result: Code changes are generated to improve the complexity of the distinct function from O(n^2) to O(n log n), e.g. by using a hash set.
 
+Note that all these changes are succinct. In total, for the 14 examples above, the total number of changed words is about 50. This is a key feature of EEA: the changes are succinct and easy to understand, and yet also precise in intent, because they are based on a specification that is derived from the code itself.
+
 Together these mean EEA gives a portal to multiple different approaches to software development, including:
 
 - Specification by properties
@@ -325,7 +327,8 @@ We observed the following advantages in our initial user testing:
 - Comprehension: EEA naturally helps users understand and maintain, while also being machine-readable.
 - Solving the Vocabulary Problem: EEA gives users the vocabulary they need to shape and describe their intent. As a result the actual change to a specification can often be very small.
 - Incremental Adoption: EEA can be gradually adopted on existing repositories, allowing users to start using it without having to rewrite their entire codebase.
-- Accuracy: Extract-Edit can produce accurate and precise specifications, which, when used as inputs to the Apply step,  generate code changes that are accurate and precise.
+- Accuracy: Extract-Edit can produce accurate and precise specifications, which, when used as inputs to the Apply step, generate code changes that are accurate and precise.
+- Succinctness: EEA means code changes are specified extremely succinctly, in the sense that the number of overall changed words needed to express a change is small.
 
 We observed the following drawbacks:
 
