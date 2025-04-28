@@ -2,7 +2,7 @@
 documentclass: report
 fontsize: 10pt
 title-meta: "Extract, Edit, Apply"
-author-meta: "Don Syme, Edward Aftandilian, Jonathan Carter, Anthony van der Hoorn, ..."
+author-meta: "Don Syme, Edward Aftandilian, Jonathan Carter, Anthony van der Hoorn, Tamás Szabó, Rahul Pandita, Terkel Gjervig, Idan Gazit"
 date-meta: "18 March 2025"
 ---
 
@@ -12,22 +12,22 @@ date-meta: "18 March 2025"
 
 **GitHub Next Technical Report GHN-TR-1002**
 
-**Abstract**: Extract, Edit, Apply (EEA) is a new category of assists for software development that aims to streamline the process of using natural language for code modification over existing codebases. EEA revolves around the notion of _ephemeral_, _editable_ specifications: users can edit either the code, or edit ephemeral specs, which are code summaries pivoting on a user-specifiable topic. The ephemeral specifications can be generated, modified, and discarded as needed. This report outlines the core idea, two of our prototypes of the concept, some observations of its utility, and describe possible future variations which could be developed.
+**Abstract**: Extract, Edit, Apply (EEA) is a new category of assists for software development that aims to streamline the process of using natural language for code modification over existing codebases. EEA revolves around the notion of _ephemeral_, _editable_ specifications: users can edit either the code, or edit ephemeral specs, which are code summaries pivoting on a user-specifiable topic. These specifications can be generated, modified, and discarded as needed. This report outlines the core idea, two of our prototypes of the concept, some observations of its utility, and describe possible future variations which could be developed.
 
-Authors: Don Syme, Edward Aftandilian, , ... at [GitHub Next](https://githubnext.com/).
+Authors: Don Syme, Edward Aftandilian, Jonathan Carter, Anthony van der Hoorn, Tamás Szabó, Rahul Pandita, Terkel Gjervig, Idan Gazit at [GitHub Next](https://githubnext.com/).
 
 Bibtex:
 
 ```bib
 @techreport{syme2024eea,
      title = {{Extract, Edit, Apply}},
-     author = {Don Syme and Edward Aftandilian and Jonathan Carter and Anthony van der Hoorn and ...},
+     author = {Don Syme and Edward Aftandilian and Jonathan Carter and Anthony van der Hoorn and Tamás Szabó and Rahul Pandita and Terkel Gjervig and Idan Gazit},
      group = {GitHub Next},
      number = {GHN-TR-1002},
      year = {2025},
      url = {https://github.com/githubnext/eea/blob/main/docs/report.md},
      institution = {GitHub},
-     month = {03}
+     month = {04}
 }
 ```
 
@@ -41,7 +41,7 @@ One of the core problems in software development is modifying existing codebases
 
 In existing software development, it is often the case that "Code is King" - the code is the primary artifact, and any specifications or documentation are secondary, or even non-existent. While the role of specifications varies across different software development paradigms and settings, the general trend in the 2010s has been towards code being the primary artifact, with specifications at best secondary.
 
-The advent of Generative AI has seen a rise in exploring ways to use the power of natural language within the software development process, opening possibilities of new paradigms in software development where tasks, specifications and requirements are primary - or at least first-class - citizens in the development process. One early example of this was [the SpecLang project](https://githubnext.com/projects/speclang/), developed by GitHub Next in 2023. SpecLang was envisaged as a specification compiler that allows users to describe the behavior of code in natural language, aiming to provide a way for developers to write specifications that are easy to understand and maintain, while also being machine-readable. While SpecLang was not publicly released it forms part of the background to the work described in this report.
+The advent of Generative AI has seen a rise in exploring ways to use the power of natural language within the software development process, opening possibilities of new paradigms in software development where tasks, specifications and requirements are primary - or at least first-class - citizens in the development process. One early example of this was [the SpecLang project](https://githubnext.com/projects/speclang/), developed by GitHub Next in 2023. SpecLang was envisaged as a specification-to-code compiler that allows users to describe the behavior of code in natural language, aiming to provide a way for developers to write specifications that are easy to understand and maintain, while also being machine-readable. While SpecLang was not publicly released, it forms part of the background to the work described in this report.
 
 Other examples of specification-first programming include:
 
@@ -49,18 +49,19 @@ Other examples of specification-first programming include:
 - Adhoc use of Chat-GPT to generate code under human direction.
 - The coding systems developed by [tessl.ai](https://tessl.ai/).
 - The requirements-to-app toolchain of [cogna.co](https://cogna.co/).
-- The app-description-to-code toolchain of [Lovable](https://www.lovable.dev/).
+- The app-description-to-code toolchains of [Lovable](https://www.lovable.dev/) and [v0](https://v0.dev/).
 - The many recent examples of ["Vibe" programming](https://en.wikipedia.org/wiki/Vibe_coding).
 
 There are, however, multiple problems with natural language "programming" where words, specifications or documentation are primary. These include:
 
-- The initial absence of specifications or documentation in many existing codebases.
 - The inherent ambiguity of language.
-- The difficulty of understanding and maintaining natural language specifications.
+- The initial absence of specifications or documentation in many existing codebases.
+- The difficulty of maintaining natural language specifications and documentation under change.
+- The difficulty for non-native speakers to work with highly technical language.
 - The non-deterministic nature of LLMs including code generation, even when intent is unambiguous.
-- The instability of AI code-generation under otherwise small or unimportant changes to inputs.
+- The instability of LLM code-generation under otherwise small or unimportant changes to inputs.
 
-Together these mean that Generative AI tends to be used in the "initial generation" mode, where the user asks for code, and the AI generates a new function, module, feature change or entire codebase. While this is immensely powerful, it begs the question "what next", and doesn't give a stable iterative workflow for assisted software development. Most notably, repeated applications of this methodology with slightly changed specifications can lead to wildly different outputs.
+Together these mean that Generative AI tends to be used in the "initial generation" mode, where the user asks for code, and the AI generates a new function, module, feature change or entire codebase. While this is immensely powerful, it begs the question "what next", and doesn't give a stable iterative workflow for assisted software development. Repeated applications of this methodology with slightly changed specifications can lead to wildly different outputs.
 
 In practice, numerous techniques are utilized to "stabilize" the AI code generation process from an initial specification. These include:
 
@@ -72,20 +73,20 @@ These techniques are all useful, but the problems of instability and ambiguity a
 
 One approach to this is to switch to a "task-oriented" mode of describing changes to software, and this approach is now becoming normal, for example:
 
-- Copilot Workspace, which allows users to describe tasks in natural language and then generates code to implement those tasks, and then allows further iterative changes to the code by imperative commands.
-- Cursor Compose, which operates similarly in an IDE context.
-- VSCode Edits, which is again similar and IDE-based.
-- GitHub Spark, which accepts iterative updates to change a generated app.
+- [Copilot Workspace](https://githubnext.com/projects/copilot-workspace), which allows users to describe tasks in natural language and then generates code to implement those tasks, and then allows further iterative changes to the code by imperative commands.
+- [Cursor Composer](https://docs.cursor.com/chat/overview), which operates similarly in an IDE context.
+- [Copilot Edits](https://code.visualstudio.com/docs/copilot/chat/copilot-edits), which is again similar and IDE-based.
+- [GitHub Spark](https://githubnext.com/projects/github-spark), which accepts iterative updates to change a generated app.
 
 However, another more human problem arises with task-oriented natural language programming: at each task description the user must "find the words", that is, find the vocabulary, the concepts and the precision by which to describe the change they intend. Often the user has no idea how to do this - words can be hard! This problem has been known for many years in information retrieval, referred to as [the "vocabulary problem"](https://dl.acm.org/doi/10.1145/32206.32212). The vocabulary problem is particularly acute when the user is not familiar with the codebase or the domain, when they tend to resort to hand-waving, vague words and gestures. Further the words chosen by the user may not be the same as the words used in the codebase.
 
-Another recurring linguistic problem is the "reference problem". When writing a task, the user must find words to refer to exact code locations and entities sufficiently unambiguously. In code this can mean finding natural language to refer to extremely subtle points in the flow of information or control, or to specific data structures or algorithms. In order to change the code for an information flow, it can first be necessary to summarize the whole flow, and then describe exactly how it is to change. This is tedious in natural language, and begs the question whether this summarization can be automated.
+Another recurring linguistic problem is the "reference problem". When writing a task, the user must find words to refer to exact code locations, functions, methods, classes, feature points, design layers, visual elements and other logical entities sufficiently unambiguously. In code this can mean finding the right natural language to refer to extremely subtle points in the flow of information or control, or to specific data structures or algorithms. In order to change the code for an information flow, it can first be necessary to summarize the whole flow, and then describe exactly how it is to change. This is tedious in natural language, and begs the question whether this process can be automated.
 
-In short, the advent of Generative AI means humans are now finding it compelling and productive to describe software changes with words. However words are ambiguous, the artifacts generated from them are unstable, and human often struggles to find the right words to describe intent sufficiently unambiguously.
+In short, the advent of Generative AI means humans are now finding it compelling and productive to describe software changes with words. However words are ambiguous, the artifacts generated from them are unstable, and humans often struggle to find the right words to describe intent sufficiently unambiguously.
 
 ## Core Idea
 
-The above discussion assumes words are primary. However what if we start from the opposite position: what if code is primary, and specifications (words) are secondary, while still embracing natural language as a valid way of describing change? This is the starting point of the Extract, Edit, Apply (EEA) concept we have been exploring at GitHub Next.
+The above discussion assumes words are primary. However what if we start from the opposite position: what if code is primary, and specifications (words) are secondary, while still embracing natural language as a valid way of describing change? This is the starting point of the _Extract, Edit, Apply (EEA)_ concept we have been exploring at GitHub Next.
 
 EEA revolves around the notion of _ephemeral_, _editable_, _partial_ specifications. The paradigm is to make code permanent and specifications ephemeral: users can edit either the code or ephemeral specs, which are essentially code summaries that can be generated, modified, and discarded as needed. If the user edits an ephemeral specification, the toolchain will offer a code change corresponding to the spec change. The user can then accept or reject the code change, and the toolchain will apply the change to the codebase.
 
@@ -95,24 +96,32 @@ When extracting the specification, the extraction is done with respect to a "piv
 
 ## Formulation as Functions
 
+### Specification-First (with Iteration by Editing Full Specifications)
+
 Let's contrast the essential components of spec-first and code-first natural language programming. For a spec-first approach, we have:
 
 - `State`: Spec
 - `CompileSpec`: Spec ⟿ Code
 
-If the spec-first approach supports iterating on the specification and code, we also have:
+In the above the symbol ⟿ represents an unstable generation of words or code either by a human or using one or more LLM invocations, where the instability can arise from any of the reasons well-known with LLM probabilistic generation:
+
+- the inherent ambiguity of words, or
+- the many possible ways to code a solution, or
+- the "filling in of reasonable defaults" that happens when LLMs elaborate specifications, or 
+- the "hallucination" of arbitrary results in highly ambiguous problems spaces.
+
+That is, compilation of a specification to code is not deterministic, and the specification itself contains ambiguity.
+
+If the spec-first approach supports _iterating_ by editing the specification, we also have:
 
 - `StartState`: (Spec, Code)
 - `EditSpec`: Spec ⟿ Spec' (done by human)
 - `ApplyPartialSpecChange`: (Code, Spec, Spec') ⟿ Code'
 - `EndState`: (Spec', Code')
 
-These functions can be autonomous agentic processes that have any internal iteration or processing logic. In the above the symbol ⟿ represents an unstable generation of words or code either by a human or using one or more LLM invocations, where the instability can arise from any of the reasons well-known with LLM probabilistic generation:
+Note that the start and end states are both specifications and code. Both the specification and the code are first-class citizens in this approach and both must be maintained under cahnge.
 
-- the inherent ambiguity of words
-- the many possible ways to code a solution
-- the "filling in of reasonable defaults" that happens when LLMs elaborate specifications, or 
-- the process of hallucination over ambiguous problems spaces.
+### Code-First (with Iteration by Editing Partial Specifications)
 
 In contrast, a code-first approach with EEA has the following components:
 
@@ -124,19 +133,19 @@ In contrast, a code-first approach with EEA has the following components:
 
 Note that the start and end states are just code. Code is King.
 
-Note also that the `ExtractPartialSpec` function is not a simple "summarization" function. It is a complex function that can involve multiple steps, including retrieval of relevant code, summarization, and generation of a specification. Further the output need not be plain text or markdown: it can in theory be a diagram generator, or property extractor, or entity extractor, or a myriad of other analysis operations over code.
+In this `ExtractPartialSpec` function is not a simple "summarization" function. It is a complex function that can involve multiple steps, including retrieval of relevant code, summarization, and generation of a specification. Further the output need not be plain text or markdown: the extraction function it can in theory be a diagram generator, or property extractor, or entity extractor, or a myriad of other extractive operations over code. These functions can be autonomous agentic processes that have any internal iteration or processing logic. 
 
 The inputs to the `ApplyPartialSpecChange` function include both the original and modified partial specifications. This function will typically be implemented by an LLM, and in its prompt-preparation the change being requested can be assessed and emphasized ("the developer has added a new requirement" or "the developer has adjusted X to Y" etc.). Further, the entire context of the original analysis is known to the function, and so the LLM processing can be designed to apply the change in a way that is consistent with the original analysis.
 
-Note that in the purist, dogmatic form of EEA, no code editing by the human is needed at all - in theory all coding can proceed via repeated specification extraction, editing and application. However, in practice, the human will often need to edit the code directly, and this is compatible with EEA.
+Note that in the purist, dogmatic form of code-first programming with natural language, no code editing by the human is needed at all. In theory all coding can proceed via repeated specification extraction, editing and application. However, in practice, the human will often need to edit the code directly. Direct code-editing is compatible with the EEA approach, and the human can choose to edit the code directly or extract, edit and apply the specification. The EEA approach is thus a hybrid of code-first and spec-first programming, where the human can choose to work with either code or specifications, and where the specifications are ephemeral and editable.
 
 ## Many Pivots, Many Partial Specifications
 
-EEA embraces the idea that there is not one "primary" specification, but rather many possible "partial" specifications that can be used to give valid "views" of code. This is a key difference to most spec-first programming, which inevitably must embrace a more-or-less unitary notion of specification. Instead, the EEA approach conceptualizes software as multi-dimensional, multi-faceted, pivotable: more like a data cube than a hierarchically organized concept tree.
+EEA embraces the idea that there is not one "primary" specification, but rather many possible "partial" specifications that can be used to give valid "views" of code. This is a key difference to most spec-first programming, which inevitably must embrace a more-or-less unitary notion of specification. A unitary notion of specification generally leads to a way to organize specifications, e.g. as a hierarchically organized description of components or concepts. Instead, the EEA approach conceptualizes software as multi-dimensional, multi-faceted, pivotable: more like a data cube than a hierarchically organized concept tree.
 
-In our version of EEA, we have simply allowed pivots to be arbitrary natural language, with some initial suggested pivots. This is a very simple and flexible approach. As we have used the tool, we have explored many different kinds of pivots. Some of these are catalogued below, but this is not an exhaustive list. The key point is that the pivot can be anything, and the extraction process can be anything. The extraction process can be a simple LLM invocation, or it can be a complex multi-step process that involves multiple LLMs, retrieval systems, and other tools.
+In our version of EEA, we have simply allowed pivots to be arbitrary natural language, with some initial suggested pivots. This is a very simple and flexible approach. As we have used the tool, we have explored many different kinds of pivots. Some of these are catalogued below, but this is not an exhaustive list. The key point is that the pivot can be any natural language, and the extraction process can be similarly general. The extraction process can be a simple LLM invocation, or it can be a complex multi-step process that involves multiple LLMs, retrieval systems, and other tools.
 
-The following are examples of pivots we have explored in our prototypes:
+The following are examples of pivots we have explored in our prototypes, with indicative examples of the kinds of extracts, edits and code results that can be made to the code. The examples are not exhaustive, and the pivots are not mutually exclusive.
 
 - **General Summary**: A general summary of the behavior of the code
 
@@ -255,7 +264,7 @@ Together these mean EEA gives a portal to multiple different approaches to softw
 - Specification by requirement
 - Specification by formal language
 
-EEA is thus in essence neutral to the specification approach embodied by the extracted text, though its utility will of course depend on the accuracy and quality of the `ExtractPartialSpec` and `ApplyPartialSpecChange` functions with regard to those specification techniques, as implemented by underlying AI agents.
+EEA is thus in essence neutral to the specification approach embodied by the extracted text. However its utility will of course depend on the accuracy and quality of the `ExtractPartialSpec` and `ApplyPartialSpecChange` functions with regard to those specification techniques, as implemented by underlying AI agents and other AI logic.
 
 ### Implementation Approaches
 
@@ -284,15 +293,14 @@ Below we include a video of a very early use of the demonstrator, which was buil
 
 https://github.com/user-attachments/assets/911248d0-10f0-4d39-826d-fd860f244899
 
-
 In the video:
 
 - The user enters two pivots, the second being "which natural language used in the output messages"
-- The user extracts a specification from the codebase, which mentions the word "English"
+- The user extracts a specification from the codebase, which mentions the word "English", in a precise way: "The natural language used in the output messages is English"
 - The user edits the specification to change the language from "English" to "French"
 - The user applies the change to the codebase, which results in all the diagnostic output messages being changed from "English" to "French"
 
-The video demonstrates some important points. First, in this setting, a simple imperative change command like "Change from English to French" is insufficient because there is a lot of English in the codebase which should not be changed: the identifiers in the code, the comments, the documentation, and so on. The workflow has allowed the user to clarify this intent.
+The video demonstrates some important points. First, in this setting, a simple imperative change command like "Change from English to French" is insufficient because there is a lot of English in the codebase which should not be changed: the identifiers in the code, the comments, the documentation, and so on.
 
 Second, if the user had entered a pivot like "What are the natural languages used in the codebase?" then the extraction would have been different, and the user would still have been able to see the ways in which "English" is used. The user could then have chosen to edit the specification to change only the use of English in diagnostic messages.
 
@@ -310,17 +318,41 @@ The list of example pivots and changes in the previous section was developed dur
 
 We also developed a suite of 30 test cases that cover a wide range of software development scenarios, including internationalization, accessibility, and feature addition. These used the command-line tool to extract, edit, and apply changes to codebases. The test cases were designed to be representative of real-world software development scenarios.
 
-During 2024, the EEA demonstrator eventually became a more broad-reaching project called [Copilot Workspace](https://github.blog/news-insights/product-news/github-copilot-workspace/). In Copilot Workspace, the focus on Extract-Edit for expressing change intent was largely dropped in favour of using explicit GitHub issues or hand-written tasks. Only one vestige of Extract-Edit was retained: the initial "How do I fix this issue" wrote both an "original" specification and the "proposed" specification - effectively automating the Extract-Edit steps based on an issue or task. This proved an effective and human-friendly initial analysis on the task. The "Apply" step was then done as before.
+During 2024, the EEA demonstrator eventually became a more broad-reaching project called [Copilot Workspace](https://github.blog/news-insights/product-news/github-copilot-workspace/) with a different conceptual basis. The focus on Extract-Edit for expressing change intent was largely dropped in favour of using explicit GitHub issues or hand-written tasks. Only one vestige of Extract-Edit was retained: the initial "How do I fix this issue" wrote both an "original" specification and the "proposed" specification - effectively automating the Extract-Edit steps based on an issue or task. This proved an effective and human-friendly initial analysis on the task. The "Apply" step was then done as before.
 
 ### Demonstrator 2 - Integrating into an App-development Environment
 
-In March 2025, GitHub Next developed an EEA addition to a prototype of GitHub Spark, which at that time was a prototypical web-based IDE for small-scale client-side app development. This addition allows users to extract specs from code, edit them, and apply changes to the codebase.
+In March 2025, GitHub Next developed an EEA addition to a prototype of [GitHub Spark](https://githubnext.com/projects/github-spark), which at the time of writing is a prototypical web-based IDE for small-scale client-side app development. The EEA addition allows users to extract specs from code, edit them, and apply changes to the codebase.
 
-screenshots TBD
+The following video shows a user using the EEA addition to add a new feature to an app. The user enters a pivot, extracts a specification, edits it, and applies changes to the codebase using a SWE-agent.
+
+https://github.com/user-attachments/assets/73609a7e-ee0e-4eba-bb88-635cef3fea93
+
+In the video:
+- The user starts with an existing application generated with GitHub Spark
+- The user enters a numebr of pivots: "Features", "Rules", "Buttons"
+- In each case, the user extracts a relatively condensed specification from the codebase
+- The user edits the specification to add or adjust a new feature in the app
 
 ## Assessment
 
-"Extract, Edit" is a mechanism for humans to express change intent, which is then used in later prompting during the "Apply" step. In today's terminology the "Apply" step is a SWE-agent that accepts the EEA-derived change intent and applies the change. For this report, the question is not "can the SWE-agent make the changes required" (i.e. the quality of the "Apply" step) but rather "do the Extract, Edit steps generate high-quality change-intent". EEA is thus not tied to any specific AI agent or implementation, but rather is a general feature to add to existing code-oriented software-development toolchains.
+"Extract, Edit, Apply" is a mechanism for humans to express change intent, which is then used in later prompting during the "Apply" step. In today's terminology the "Apply" step is a SWE-agent that accepts the edited EEA-derived change intent and applies the change. For this report, the question is not "can the SWE-agent make the changes required" (i.e. the quality of the "Apply" step) but rather "do the Extract, Edit steps generate high-quality change-intent". EEA is thus not tied to any specific AI agent or implementation, but rather is a general feature to add to existing code-oriented software-development toolchains.
+
+After editing, the change intent is passed to the AI agent as context in the prompt, using prompts of these forms:
+
+```
+Here is a summary of the 'Features' of the codebase as extracted from the current code.
+
+    {extracted spec}
+    
+The user has edited the summary as follows:
+
+    {edited spec}
+
+Please apply the change indicated by the edit to the codebase.
+```
+
+Measuring the quality of change intent is difficult. In our initial user testing, we observed that users found the EEA approach to be intuitive and easy when seen in demonstration, but struggled to formulate pivots. Once formualted and edited, the change intent was subsequently interpreted by AI models as generally accurate and precise.
 
 We observed the following advantages in our initial user testing:
 
@@ -339,16 +371,16 @@ We observed the following drawbacks:
 
 ### Existing Approaches to Expressing Change Intent
 
-The ultimate test of EEA is whether people actually use it. This remains an open question. The reality is that in current AI coding systems there are competing ways to express change intent, including:
+The ultimate test of EEA is whether, over time, tool-makers create features in this category, and users actually use them. This remains an open question. The reality is that in current AI coding systems there are competing ways to express change intent, including:
 
 - Self-prompting: Prompting AI completion agents, e.g. by writing a comment in the code.
-- Tasks: Tools such as Cursor Compose are task-to-code-change agents prompted with natural language, e.g. by an instruction "Use French for all output messages".
+- Explicit tasks: Tools such as Cursor Compose are task-to-code-change agents prompted with natural language, e.g. by an instruction "Use French for all output messages".
 - Chat: Using a chat session with an AI agent to express change intent, e.g. by asking "What languages are used in the codebase?", then receiving a reply, then using a contextualized command such as "Change all English to French".
 
 Chat in particular can be seen as supporting the "Extract" step through a series of questions and answers, and the "Edit" step through a series of clarifications/commands. The "Apply" step is then again done by the AI agent, which can be a SWE-agent or a code-generation agent.
 
-Given these multiple approaches, demonstrators like the ones we developed can't determine the ways preferred by users. So in this report we are reporting a concept: it is one we have implemented, used, and liked, and believe is promising, but which we understand to be delicate when placed along competing approaches. EEA is thus not a replacement for existing approaches, but rather an addition to them - or a new way of thinking about them.
+Given these multiple approaches, demonstrators like the ones we developed can't determine the ways preferred by users. In this report we are reporting a concept: it is one we have implemented, used, and liked, and believe is promising, but which we understand to be delicate when placed along competing approaches. EEA is thus not a replacement for existing approaches, but rather a new way of thinking about how to integrate natural language into the software development process.
 
 ## Summary
 
-The Extract, Edit, Apply (EEA) concept represents a new class of assists that can be used for non-chat, structured tooling to incorporate natural language changes even when working with complex artifacts. The assists are conceptually similar to chat sessions that analyze the artifacts and formulate a change, but are more structured and focus on editing rather than imperative commands. The approach may work best for analyses that naturally produce structured outputs, such as lists of rules, properties, or examples, where editing and augmenting these lists is natural.
+The Extract, Edit, Apply (EEA) concept represents a new class of assists that can be used to incorporate natural language summarization and editing even when working with complex artifacts. The assists are conceptually similar to chat sessions that analyze the artifacts and help the user formulate a change, but are more structured, and focus on editing rather than imperative commands. The approach may work best for analyses that naturally produce structured outputs, such as lists of rules, properties, or examples, where editing and augmenting these lists is natural.
