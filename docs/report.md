@@ -52,7 +52,9 @@ Other examples of specification-first programming include:
 - The app-description-to-code toolchains of [Lovable](https://www.lovable.dev/) and [v0](https://v0.dev/).
 - The many recent examples of ["Vibe" programming](https://en.wikipedia.org/wiki/Vibe_coding).
 
-There are, however, multiple problems with natural language "programming" where words, specifications or documentation are primary. These include:
+## Problems with Natural Language Programming
+
+There are multiple fundamental problems with natural language "programming" where words, specifications or documentation are primary. These include:
 
 - The inherent ambiguity of language.
 - The initial absence of specifications or documentation in many existing codebases.
