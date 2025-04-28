@@ -35,7 +35,7 @@ Image:
 
 ![image](../images/concept.png)
 
-## Background
+## Background: Natural Language Programming
 
 One of the core problems in software development is modifying existing codebases, particularly when working with large, complex systems where understanding the code and its specifications can be challenging.
 
@@ -52,7 +52,7 @@ Other examples of specification-first programming include:
 - The app-description-to-code toolchains of [Lovable](https://www.lovable.dev/) and [v0](https://v0.dev/).
 - The many recent examples of ["Vibe" programming](https://en.wikipedia.org/wiki/Vibe_coding).
 
-### Problems with Natural Language Programming: Ambiguity and Instability
+### Problems: Ambiguity and Instability
 
 There are multiple fundamental problems with natural language "programming" where words, specifications or documentation are primary. These include:
 
@@ -82,7 +82,7 @@ These techniques are all useful, but the problems of instability and ambiguity a
 
 The above problems must always be navigated in some form by designers of natural-language coding tools, because the user will always want to iterate on the words they use to describe their intent: iterating on words is one of the most essential aspects of human creativity. This is true even when the user is not using natural language, but rather a formal specification language or strict specification methodology.
 
-### Problems with Natural Language Programming: Vocabulary and Reference
+### Problems: Vocabulary and Reference
 
 Other, more human problems arise with natural language programming: at each creation or task description the user must "find the words", that is, find the vocabulary, the concepts and the precision by which to describe the change they intend. Often the user has no idea how to do this - words can be hard! This problem has been known for many years in information retrieval, referred to as [the "vocabulary problem"](https://dl.acm.org/doi/10.1145/32206.32212). The vocabulary problem is particularly acute when the user is not familiar with the codebase or the domain, when they tend to resort to hand-waving, vague words and gestures. Further the words chosen by the user may not be the same as the words used in the codebase.
 
