@@ -125,7 +125,12 @@ If the spec-first approach supports _iterating_ by editing the specification, we
 - `ApplyPartialSpecChange`: (Code, Spec, Spec') ⟿ Code'
 - `EndState`: (Spec', Code')
 
-Note that the start and end states are both specifications and code. Both the specification and the code are first-class citizens in this approach and both must be maintained under cahnge.
+Note that the start and end states are both specifications and code. Both the specification and the code are first-class citizens in this approach and both must be maintained under change. If code-editing is also allowed, further functions are needed:
+
+- `EditCode`: Code ⟿ Code' (done by human)
+- `ApplyCodeChange`: (Spec, Code, Code') ⟿ Spec'
+
+That is, the specification must be maintained under change. Any drift between the specification and code will ultimately result in incoherence and inaccuracy.
 
 ### Code-First (with Iteration by Editing Partial Specifications)
 
