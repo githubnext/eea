@@ -52,7 +52,7 @@ Other examples of specification-first programming include:
 - The app-description-to-code toolchains of [Lovable](https://www.lovable.dev/) and [v0](https://v0.dev/).
 - The many recent examples of ["Vibe" programming](https://en.wikipedia.org/wiki/Vibe_coding).
 
-## Problems with Natural Language Programming
+### Problems with Natural Language Programming: Ambiguity and Instability
 
 There are multiple fundamental problems with natural language "programming" where words, specifications or documentation are primary. These include:
 
@@ -65,22 +65,26 @@ There are multiple fundamental problems with natural language "programming" wher
 
 Together these mean that Generative AI tends to be used in the "initial generation" mode, where the user asks for code, and the AI generates a new function, module, feature change or entire codebase. While this is immensely powerful, it begs the question "what next", and doesn't give a stable iterative workflow for assisted software development. Repeated applications of this methodology with slightly changed specifications can lead to wildly different outputs.
 
-In practice, numerous techniques are utilized to "stabilize" the AI code generation process from an initial specification. These include:
-
-- Using training and prompting techniques to reduce the valid space of generation, e.g. to constrain generation to a specific programming language, with specific conventions.
-- Using retrieval techniques to constrain the kinds of code that can be generated, e.g. by using a large codebase as a "context" for the generation, or by having retrieval operate over the documentation for preferred libraries, design systems or functions.
-- Using caching of generated code artifacts, so that, as the user iterates on a specification, the generative system refers to previous outputs and tries to keep the next iteration of outputs stable and consistent.
-
-These techniques are all useful, but the problems of instability and ambiguity are endemic to human-iterative AI-generative workflows. These problems must always be navigated in some form by designers of natural-language coding tools, because the user will always want to iterate on the words they use to describe their intent: iterating on words is one of the most essential aspects of human creativity. This is true even when the user is not using natural language, but rather a formal specification language or strict specification methodology.
-
-One approach to this is to switch to a "task-oriented" mode of describing changes to software, and this approach is now becoming normal, for example:
+These problems are also present in "task-oriented" mode of describing changes to software, an approach now becoming normal in the industry, for example:
 
 - [Copilot Workspace](https://githubnext.com/projects/copilot-workspace), which allows users to describe tasks in natural language and then generates code to implement those tasks, and then allows further iterative changes to the code by imperative commands.
 - [Cursor Composer](https://docs.cursor.com/chat/overview), which operates similarly in an IDE context.
 - [Copilot Edits](https://code.visualstudio.com/docs/copilot/chat/copilot-edits), which is again similar and IDE-based.
 - [GitHub Spark](https://githubnext.com/projects/github-spark), which accepts iterative updates to change a generated app.
 
-However, another more human problem arises with task-oriented natural language programming: at each task description the user must "find the words", that is, find the vocabulary, the concepts and the precision by which to describe the change they intend. Often the user has no idea how to do this - words can be hard! This problem has been known for many years in information retrieval, referred to as [the "vocabulary problem"](https://dl.acm.org/doi/10.1145/32206.32212). The vocabulary problem is particularly acute when the user is not familiar with the codebase or the domain, when they tend to resort to hand-waving, vague words and gestures. Further the words chosen by the user may not be the same as the words used in the codebase.
+In practice, numerous techniques are utilized to "stabilize" the AI code generation process from an initial specification. These include:
+
+- Using training and prompting techniques to reduce the valid space of generation, e.g. to constrain generation to a specific programming language, with specific conventions.
+- Using retrieval techniques to constrain the kinds of code that can be generated, e.g. by using a large codebase as a "context" for the generation, or by having retrieval operate over the documentation for preferred libraries, design systems or functions.
+- Using caching of generated code artifacts, so that, as the user iterates on a specification, the generative system refers to previous outputs and tries to keep the next iteration of outputs stable and consistent.
+
+These techniques are all useful, but the problems of instability and ambiguity are endemic to human-iterative AI-generative workflows.
+
+The above problems must always be navigated in some form by designers of natural-language coding tools, because the user will always want to iterate on the words they use to describe their intent: iterating on words is one of the most essential aspects of human creativity. This is true even when the user is not using natural language, but rather a formal specification language or strict specification methodology.
+
+### Problems with Natural Language Programming: Vocabulary and Reference
+
+Other, more human problems arise with natural language programming: at each creation or task description the user must "find the words", that is, find the vocabulary, the concepts and the precision by which to describe the change they intend. Often the user has no idea how to do this - words can be hard! This problem has been known for many years in information retrieval, referred to as [the "vocabulary problem"](https://dl.acm.org/doi/10.1145/32206.32212). The vocabulary problem is particularly acute when the user is not familiar with the codebase or the domain, when they tend to resort to hand-waving, vague words and gestures. Further the words chosen by the user may not be the same as the words used in the codebase.
 
 Another recurring linguistic problem is the "reference problem". When writing a task, the user must find words to refer to exact code locations, functions, methods, classes, feature points, design layers, visual elements and other logical entities sufficiently unambiguously. In code this can mean finding the right natural language to refer to extremely subtle points in the flow of information or control, or to specific data structures or algorithms. In order to change the code for an information flow, it can first be necessary to summarize the whole flow, and then describe exactly how it is to change. This is tedious in natural language, and begs the question whether this process can be automated.
 
