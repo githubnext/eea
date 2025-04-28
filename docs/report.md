@@ -329,13 +329,13 @@ The list of example pivots and changes in the previous section was developed dur
 
 We also developed a suite of 30 test cases that cover a wide range of software development scenarios, including internationalization, accessibility, and feature addition. These used the command-line tool to extract, edit, and apply changes to codebases. The test cases were designed to be representative of real-world software development scenarios.
 
-During 2024, the EEA demonstrator eventually became a more broad-reaching project called [Copilot Workspace](https://github.blog/news-insights/product-news/github-copilot-workspace/) with a different conceptual basis. The focus on Extract-Edit for expressing change intent was largely dropped in favour of using explicit GitHub issues or hand-written tasks. Only one vestige of Extract-Edit was retained: the initial "How do I fix this issue" wrote both an "original" specification and the "proposed" specification - effectively automating the Extract-Edit steps based on an issue or task. This proved an effective and human-friendly initial analysis on the task. The "Apply" step was then done as before.
+During 2024, the EEA demonstrator influenced a more broad-reaching project called [Copilot Workspace](https://githubnext.com/projects/copilot-workspace) with a different conceptual basis. The focus on Extract-Edit for expressing change intent was removed. Only one vestige of Extract-Edit was retained: the initial "How do I fix this issue" wrote both an "original" specification and the "proposed" specification - effectively automating the Extract-Edit steps based on an issue or task. This proved an effective and human-friendly initial analysis on the task. The "Apply" step was then done as before.
 
 ### Demonstrator 2 - Integrating into an App-development Environment
 
 In March 2025, GitHub Next developed an EEA addition to a prototype of [GitHub Spark](https://githubnext.com/projects/github-spark), which at the time of writing is a prototypical web-based IDE for small-scale client-side app development. The EEA addition allows users to extract specs from code, edit them, and apply changes to the codebase.
 
-The following video shows a user using the EEA addition to add a new feature to an app. The user enters a pivot, extracts a specification, edits it, and applies changes to the codebase using a SWE-agent.
+The following video shows a user using the EEA addition to add a new feature to an app.
 
 https://github.com/user-attachments/assets/73609a7e-ee0e-4eba-bb88-635cef3fea93
 
@@ -347,7 +347,7 @@ In the video:
 
 ## Assessment
 
-"Extract, Edit, Apply" is a mechanism for humans to express change intent, which is then used in later prompting during the "Apply" step. In today's terminology the "Apply" step is a SWE-agent that accepts the edited EEA-derived change intent and applies the change. For this report, the question is not "can the SWE-agent make the changes required" (i.e. the quality of the "Apply" step) but rather "do the Extract, Edit steps generate high-quality change-intent". EEA is thus not tied to any specific AI agent or implementation, but rather is a general feature to add to existing code-oriented software-development toolchains.
+"Extract, Edit, Apply" is a mechanism for humans to express change intent, which is then used in later prompting during the "Apply" step. In today's terminology the "Apply" step is a SWE-agent that accepts the edited EEA-derived change intent and applies the change. For this report, the question is not "can the SWE-agent make the changes required" (i.e. the quality of the "Apply" step) but rather "do the Extract, Edit steps generate high-quality change-intent". 
 
 After editing, the change intent is passed to the AI agent as context in the prompt, using prompts of these forms:
 
@@ -363,14 +363,14 @@ The user has edited the summary as follows:
 Please apply the change indicated by the edit to the codebase.
 ```
 
-Measuring the quality of change intent is difficult. In our initial user testing, we observed that users found the EEA approach to be intuitive and easy when seen in demonstration, but struggled to formulate pivots. Once formualted and edited, the change intent was subsequently interpreted by AI models as generally accurate and precise.
+Measuring the quality of change intent is difficult. In our initial testing, we consistently observed that the "quality" of the change intent was high, in that the intent could very accurately capture a broad and complex set of possible changes to software. We also observed that users found the EEA approach to be intuitive and easy when seen in demonstration. However, we observed that users struggled to formulate pivots - the flow was new, and not immediately intuitive. When presented as a "search summary tool with editable summary" the tool became more intuitive. Once formualted and edited, the change intent was subsequently well-interpreted by AI models.
 
 We observed the following advantages in our initial user testing:
 
 - **Comprehension**: EEA naturally helps users understand and maintain, while also being machine-readable.
 - **Solving the Vocabulary Problem**: EEA gives users the vocabulary they need to shape and describe their intent. As a result the actual change to a specification can often be very small.
 - **Incremental Adoption**: EEA can be gradually adopted on existing repositories, allowing users to start using it without having to rewrite their entire codebase.
-- **Accuracy**: Extract-Edit can produce accurate and precise specifications, which, when used as inputs to the Apply step, generate code changes that are accurate and precise.
+- **Accuracy**: EEA can produce accurate and precise change intent, which, when used as inputs to the Apply step, generate code changes that are accurate and precise.
 - **Succinctness of Change**: EEA means code changes are specified extremely succinctly, in the sense that the number of overall changed words needed to express a change is small.
 
 We observed the following drawbacks:
