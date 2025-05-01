@@ -311,9 +311,11 @@ In the video:
 - The user edits the specification to change the language from "English" to "French"
 - The user applies the change to the codebase, which results in all the diagnostic output messages being changed from "English" to "French"
 
-The video demonstrates some important points. First, in this setting, a simple imperative change command like "Change from English to French" is insufficient because there is a lot of English in the codebase which should not be changed: the identifiers in the code, the comments, the documentation, and so on.
+The video demonstrates some important points. First, in this setting, a simple imperative change command like "Change from English to French" is insufficient because there is a lot of English in the codebase which should not be changed: the identifiers in the code, the comments, the documentation, and so on. Second, if the user had entered a pivot like "What are the natural languages used in the codebase?" then the extraction would have been different, and the user would still have been able to see the ways in which "English" is used. The user could then have chosen to edit the specification to change only the use of English in diagnostic messages.
 
-Second, if the user had entered a pivot like "What are the natural languages used in the codebase?" then the extraction would have been different, and the user would still have been able to see the ways in which "English" is used. The user could then have chosen to edit the specification to change only the use of English in diagnostic messages.
+A second example from this early demonstrator is shown below. In this case the user enters a generic pivot "the behaviour" and edits the summary to add a single word "count" as a new feature to be supported in the note-taking command-line tool. The user then applies the change to the codebase, which results in a new command being added to the tool. A feature has been added to the tool, and the user has not had to write any code. The user has simply edited an ephemeral specification of the code.
+
+![image](../images/add-notes-feature-with-implementation.png)
 
 ### Initial User Testing
 
@@ -329,7 +331,7 @@ The list of example pivots and changes in the previous section was developed dur
 
 We also developed a suite of 30 test cases that cover a wide range of software development scenarios, including internationalization, accessibility, and feature addition. These used the command-line tool to extract, edit, and apply changes to codebases. The test cases were designed to be representative of real-world software development scenarios.
 
-During 2024, the EEA demonstrator influenced a more broad-reaching project called [Copilot Workspace](https://githubnext.com/projects/copilot-workspace) with a different conceptual basis. The focus on Extract-Edit for expressing change intent was removed. Only one vestige of Extract-Edit was retained: the initial "How do I fix this issue" wrote both an "original" specification and the "proposed" specification - effectively automating the Extract-Edit steps based on an issue or task. This proved an effective and human-friendly initial analysis on the task. The "Apply" step was then done as before.
+During 2024, the EEA demonstrator influenced a more broad-reaching project called [Copilot Workspace](https://githubnext.com/projects/copilot-workspace) with a different conceptual basis. The focus on Extract-Edit for expressing change intent was removed in favour of using GitHub Issues as the primary source of change intent. Only one vestige of Extract-Edit was retained: the initial "How do I fix this issue" wrote both an "original" specification and the "proposed" specification - effectively automating the Extract-Edit steps based on an issue or task. This proved an effective and human-friendly initial analysis on the task. The "Apply" step was then done as before.
 
 ### Demonstrator 2 - Integrating into an App-development Environment
 
