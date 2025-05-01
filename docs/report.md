@@ -137,26 +137,26 @@ That is, the specification must be maintained under change. Any drift between th
 In contrast, a code-first approach with EEA has the following components:
 
 - `StartState`: Code
-- `ExtractPartialSpec`: Code + Pivot ⟿ PartialSpec
+- `ExtractPartialSpec`: (Code, Pivot) ⟿ PartialSpec
 - `EditPartialSpec`: PartialSpec ⟿ PartialSpec' (done by human)
 - `ApplyPartialSpecChange`: (Code, Pivot, PartialSpec, PartialSpec') ⟿ Code'
 - `EndState`: Code'
 
 Note that the start and end states are just code. Code is King.
 
-In this `ExtractPartialSpec` function is not a simple "summarization" function. It is a complex function that can involve multiple steps, including retrieval of relevant code, summarization, and generation of a specification. Further the output need not be plain text or markdown: the extraction function it can in theory be a diagram generator, or property extractor, or entity extractor, or a myriad of other extractive operations over code. These functions can be autonomous agentic processes that have any internal iteration or processing logic. 
+In this `ExtractPartialSpec` function can be a simple "summarization" function. However, it can also be richer: an agentic function with multiple steps, including retrieval of relevant code, summarization, and generation of a specification. Further the output need not be plain text or markdown: the extraction function can be a diagram generator, or property extractor, or entity extractor, or a myriad of other extractive operations over code. These functions can be autonomous agentic processes that have any internal iteration or processing logic. 
 
-The inputs to the `ApplyPartialSpecChange` function include both the original and modified partial specifications. This function will typically be implemented by an LLM, and in its prompt-preparation the change being requested can be assessed and emphasized ("the developer has added a new requirement" or "the developer has adjusted X to Y" etc.). Further, the entire context of the original analysis is known to the function, and so the LLM processing can be designed to apply the change in a way that is consistent with the original analysis.
+The inputs to the `ApplyPartialSpecChange` function include both the original and modified partial specifications. This function will typically be implemented by an LLM, and in its prompt-preparation the change being requested can be assessed and emphasized ("the developer has added a new requirement" or "the developer has adjusted X to Y" etc.). Further, the entire context of the original extraction is known to the function, and so the LLM processing can be designed to apply the change in a way that is consistent with the original extraction.
 
-Note that in the purist, dogmatic form of code-first programming with natural language, no code editing by the human is needed at all. In theory all coding can proceed via repeated specification extraction, editing and application. However, in practice, the human will often need to edit the code directly. Direct code-editing is compatible with the EEA approach, and the human can choose to edit the code directly or extract, edit and apply the specification. The EEA approach is thus a hybrid of code-first and spec-first programming, where the human can choose to work with either code or specifications, and where the specifications are ephemeral and editable.
+Note that in the purist, dogmatic form of code-first programming with natural language, no code editing by the human is needed at all. In theory all coding can proceed via repeated extraction, editing and application. However, in practice, the human will often need to edit the code directly. Direct code-editing is compatible with the EEA approach: the human can choose to edit the code directly or extract, edit and apply the specification. The EEA approach is thus a hybrid of code-first and spec-first programming, where the human can choose to work with either code or specifications, and where the specifications are ephemeral and editable.
 
 ## Many Pivots, Many Partial Specifications
 
-EEA embraces the idea that there is not one "primary" specification, but rather many possible "partial" specifications that can be used to give valid "views" of code. This is a key difference to most spec-first programming, which inevitably must embrace a more-or-less unitary notion of specification. A unitary notion of specification generally leads to a way to organize specifications, e.g. as a hierarchically organized description of components or concepts. Instead, EEA conceptualizes software as multi-dimensional, multi-faceted, pivotable: more like a data cube than a hierarchically organized concept tree.
+EEA embraces the idea that there is not just "one specification", but rather many possible "partial" specifications that can be used to give valid "views" of code. This is a key difference to most spec-first programming, which must embrace a more-or-less unitary notion of specification and a preferred way to organize specifications (e.g. as a hierarchically organized description of components or concepts). Instead, EEA conceptualizes software as multi-dimensional, multi-faceted, pivotable: more like a data cube than a hierarchically organized concept tree.
 
-In our version of EEA, we have simply allowed pivots to be arbitrary natural language, with some initial suggested pivots. This is a very simple and flexible approach. As we have used the tool, we have explored many different kinds of pivots. Some of these are catalogued below, but this is not an exhaustive list. The key point is that the pivot can be any natural language, and the extraction process can be similarly general. The extraction process can be a simple LLM invocation, or it can be a complex multi-step process that involves multiple LLMs, retrieval systems, and other tools.
+In our version of EEA, we have simply allowed pivots to be arbitrary natural language, with some initial suggested pivots. This is a very simple and flexible approach.
 
-The following are examples of pivots we have explored in our prototypes, with indicative examples of the kinds of extracts, edits and code results that can be made to the code. The examples are not exhaustive, and the pivots are not mutually exclusive.
+As we have used the tool, we have explored many different kinds of pivots. The following are examples we have explored in our prototypes, with indicative examples of the kinds of extracts, edits and code results that can be made to the code. The examples are not exhaustive, and the kinds of pivots are not mutually exclusive.
 
 - **General Summary**: A general summary of the behavior of the code
 
@@ -263,7 +263,7 @@ The following are examples of pivots we have explored in our prototypes, with in
   - Example edit: "filter is O(n), map is O(n), distinct is O(n log n)"
   - Example apply: Code changes are generated to improve the complexity of the distinct function from O(n^2) to O(n log n), e.g. by using a hash set.
 
-Note that all these changes are succinct. In total, for the 14 examples above, the total number of changed words is about 50. This is a key feature of EEA: the changes are succinct and easy to understand, and yet also precise in intent, because they are based on a specification that is derived from the code itself.
+Note that all these changes are succinct. In total, for the 14 examples above, the total number of changed words is about 50. This is a key feature of EEA: the changes are succinct and easy to understand, and yet also precise in intent, because they are based on a specification that is extracted from the code itself.
 
 Together these mean EEA gives a portal to multiple different approaches to software development, including:
 
@@ -347,12 +347,12 @@ In the video:
 
 ## Assessment
 
-"Extract, Edit, Apply" is a mechanism for humans to express change intent, which is then used in later prompting during the "Apply" step. In today's terminology the "Apply" step is a SWE-agent that accepts the edited EEA-derived change intent and applies the change. For this report, the question is not "can the SWE-agent make the changes required" (i.e. the quality of the "Apply" step) but rather "do the Extract, Edit steps generate high-quality change-intent". 
+"Extract, Edit, Apply" is a category of assists for humans to express change intent, which is then used in later prompting during the "Apply" step. In today's terminology the "Apply" step is a SWE-agent that accepts the edited EEA-derived change intent and applies the change. For this report, the question is not "can the SWE-agent make the changes required" (i.e. the quality of the "Apply" step) but rather "do the Extract, Edit steps generate high-quality change-intent". 
 
-After editing, the change intent is passed to the AI agent as context in the prompt, using prompts of these forms:
+After editing, the change intent is passed to the AI agent as context in the prompt, usually using prompts of this form:
 
 ```
-Here is a summary of the 'Features' of the codebase as extracted from the current code.
+Here is a summary of the '{pivot}' of the codebase as extracted from the current code.
 
     {extracted spec}
     
@@ -394,4 +394,4 @@ Given these multiple approaches, demonstrators like the ones we developed can't 
 
 ## Summary
 
-The Extract, Edit, Apply (EEA) concept represents a new class of assists that can be used to incorporate natural language summarization and editing even when working with complex artifacts. The assists are conceptually similar to chat sessions that analyze the artifacts and help the user formulate a change, but are more structured, and focus on editing rather than imperative commands. The approach may work best for analyses that naturally produce structured outputs, such as lists of rules, properties, or examples, where editing and augmenting these lists is natural.
+The Extract, Edit, Apply (EEA) concept represents a class of assists that can be used to incorporate natural language summarization and editing even when working with complex artifacts. The assists are conceptually similar to chat sessions that analyze the artifacts and help the user formulate a change, but are more structured, and focus on editing rather than imperative commands. The approach may work best for analyses that naturally produce structured outputs, such as lists of rules, properties, or examples, where editing and augmenting these lists is natural.
