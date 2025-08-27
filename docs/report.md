@@ -343,7 +343,7 @@ https://github.com/user-attachments/assets/73609a7e-ee0e-4eba-bb88-635cef3fea93
 
 In the video:
 - The user starts with an existing application generated with GitHub Spark
-- The user enters a numebr of pivots: "Features", "Rules", "Buttons"
+- The user enters a number of pivots: "Features", "Rules", "Buttons"
 - In each case, the user extracts a relatively condensed specification from the codebase
 - The user edits the specification to add or adjust a new feature in the app
 
